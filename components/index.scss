@@ -1,0 +1,22 @@
+.player-wrapper {
+    position: relative;
+    padding-top: 56.25%; /* Player ratio: 100 / (1280 / 720) */
+    @apply rounded-3xl;
+  }
+  
+  .react-player {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: auto !important;
+    max-width: 1352px;
+    width: 100% !important;
+    @apply flex flex-col justify-center items-center h-min;
+    video {
+        
+        @apply md:rounded-2xl rounded-lg;
+    }
+
+  }
