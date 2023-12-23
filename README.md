@@ -1,36 +1,20 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# PeerPlay: Real-Time Shared Video Viewing Experience
 
-## Getting Started
+PeerPlay is a novel, open-source platform for shared video viewing experiences across different locations. Utilizing the latest web technologies including Next.js 14 and AppRouter, it provides a seamless, real-time interactive streaming experience.
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Key Features:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Real-Time Synchronization: Watch videos in perfect sync with friends or family. Any action like play, pause, or seek is mirrored instantly across all viewers, ensuring a cohesive viewing experience.
+- Intuitive User Interface: Enjoy a clean, user-friendly interface that makes joining and enjoying a viewing session effortless.
+- Cross-Platform Compatibility: Accessible on a wide range of devices, offering a seamless experience whether you're on a desktop, tablet, or smartphone.
+- Interactive Elements: Engage with others through integrated chat and reaction features, enhancing the social aspect of shared viewing.
+- Flexible Content Access: Stream content from various platforms or host it  directly within the app, accommodating diverse user preferences.
+- Privacy-Focused: Committed to user privacy and data security, ensuring a safe and secure environment for all interactions.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Contributing:
+We welcome contributions! Whether it's suggesting new features, fixing bugs, or improving documentation, your input is valuable. Check out our contribution guidelines for more information.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## License:
+WatchWithMe is released under MIT, making it free to use, modify, and distribute.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
