@@ -14,10 +14,10 @@ class Player extends Component<IPlayerProps, AppState> {
   state: AppState = {
     url: 'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
     pip: false,
-    playing: true,
+    playing: false,
     controls: true,
     light: true,
-    volume: 0.8,
+    volume: 1,
     muted: false,
     played: 0,
     loaded: 0,
@@ -40,6 +40,11 @@ class Player extends Component<IPlayerProps, AppState> {
     this.setState({ playing: !this.state.playing });
   };
 
+  onStart = () => {
+    if (this.player) {
+      this.player.seekTo(this.state.played);
+    }
+  };
   handleStop = () => {
     this.setState({ url: null, playing: false });
   };
@@ -160,7 +165,8 @@ class Player extends Component<IPlayerProps, AppState> {
   };
 
   syncReady = () => {
-
+    console.log("syncReady");
+    this.setState({ muted: false})
   }
   renderLoadButton = (url: string, label: string) => {
     return <button onClick={() => this.load(url)}>{label}</button>;
@@ -182,7 +188,6 @@ class Player extends Component<IPlayerProps, AppState> {
         this.setState(data.data);
       }
     
-      // this.setState((prevState) => ({ chat: [...prevState.chat, data] }));
     });
     this.socket.on("seek", (data) => {
       if (this.state.played !== data.seekTime) {
@@ -227,6 +232,7 @@ class Player extends Component<IPlayerProps, AppState> {
                 url={url as string}
                 pip={pip}
                 playing={playing}
+                
                 forceVideo
                 controls={controls}
                 loop={loop}
@@ -234,7 +240,7 @@ class Player extends Component<IPlayerProps, AppState> {
                 volume={volume}
                 muted={muted}
                 onReady={this.syncReady}
-                onStart={() => console.log("onStart")}
+                onStart={this.onStart}
                 onPlay={this.handlePlay}
                 onEnablePIP={this.handleEnablePIP}
                 onDisablePIP={this.handleDisablePIP}
