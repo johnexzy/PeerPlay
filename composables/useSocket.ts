@@ -3,7 +3,8 @@ export default function useSocket() {
   // start the socket server
 
   try {
-    const socket = io("https://socket-server-9gzc.onrender.com");
+    console.log(process.env.NEXT_PUBLIC_SOCKET)
+    const socket = io(process.env.NEXT_PUBLIC_SOCKET || "http://localhost:4000");
 
     socket.on("connect", () => {
       console.log("Connected");

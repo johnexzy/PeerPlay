@@ -4,7 +4,6 @@ import React, { Component, ChangeEvent, MouseEventHandler } from "react";
 import screenfull from "screenfull";
 import ReactPlayer, { ReactPlayerProps } from "react-player";
 import "./index.scss";
-// import Image from "next/image";
 import { AppState, IPlayerProps } from "@/types";
 
 class Player extends Component<IPlayerProps, AppState> {
@@ -122,6 +121,8 @@ class Player extends Component<IPlayerProps, AppState> {
   };
 
   handleSeekChange = (value: any) => {
+
+    console.log("onSeekChange", value);
     this.setState({ played: parseFloat(value) });
 
 
@@ -188,9 +189,9 @@ class Player extends Component<IPlayerProps, AppState> {
       console.log("Seek Event", data);
 
         if (this.player) {
-          this.handlePause()
+          // this.handlePause()
           this.player.seekTo(data.seekTime);
-          this.handlePlay();
+          // this.handlePlay();
         }
       }
     });
