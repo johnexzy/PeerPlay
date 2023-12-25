@@ -7,14 +7,14 @@ import { Button } from "@/components/button";
 import { createPlay } from "./lib/actions";
 
 function Page() {
-  const initialState = { message: "", errors: {} };
+  const initialState = { message: "", errors: {}, data: undefined };
 
   const [state, dispatch] = useFormState(createPlay, initialState);
   return (
     <div className="flex flex-col justify-center items-center h-screen">
       <form className=" max-w-[500px] w-full" action={dispatch}>
         <div className="rounded-md bg-gray-50 p-4 md:p-6">
-          {JSON.stringify(state.data)}
+          { state.data && <b>https://peer-play-azure.vercel.app/play/{state.data.id}</b>}
           <div className="mb-4">
             <label htmlFor="source" className="mb-2 block text-sm font-medium">
               Choose a video source

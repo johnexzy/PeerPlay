@@ -12,7 +12,7 @@ export type State = {
     link?: string[];
   };
   message?: string | null;
-  data?: any
+  data?: {id: string}
 };
 const PlaySchema = (source?: string) =>
   z.object({
@@ -48,6 +48,7 @@ export async function createPlay(prevState: State, formData: FormData) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing Fields. Failed to Create Play.",
+      data: undefined
     };
   }
 
@@ -66,12 +67,13 @@ export async function createPlay(prevState: State, formData: FormData) {
     console.log(result.rows[0])
     return {
         message: "Added Play",
-        data: result.rows
+        data: result.rows[0] as {id: string}
       };
   } catch (error) {
 
     console.log(error)
     return {
+      data: undefined,
       message: `${JSON.stringify(result)}`,
     };
   }

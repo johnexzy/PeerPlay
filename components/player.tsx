@@ -179,7 +179,8 @@ class Player extends Component<IPlayerProps, AppState> {
   socket = this.props.socket;
 
   componentDidMount() {
-    this.socket.emit("join_room", "roomId");
+    console.log(this.props.roomId);
+    this.socket.emit("join_room", this.props.roomId);
     this.socket.on("receive_msg", (data) => {
 
      // 
