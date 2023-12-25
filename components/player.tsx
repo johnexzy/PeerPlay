@@ -96,7 +96,7 @@ class Player extends Component<IPlayerProps, AppState> {
     this.setState({ playing: true });
 
     this.socket.emit("send_msg", {
-      roomId: "roomId",
+      roomId: `${this.props.roomId}`,
       message: "Play",
       data: { ...this.state, playing: true },
     });
@@ -117,7 +117,7 @@ class Player extends Component<IPlayerProps, AppState> {
     this.setState({ playing: false });
 
     this.socket.emit("send_msg", {
-      roomId: "roomId",
+      roomId: `${this.props.roomId}`,
       message: "Pause",
       data: { ...this.state, playing: false },
     });
@@ -132,7 +132,7 @@ class Player extends Component<IPlayerProps, AppState> {
     console.log("onSeekChange", value);
     this.setState({ played: parseFloat(value) });
 
-    this.socket.emit("seek", { roomId: "roomId", seekTime: parseFloat(value) });
+    this.socket.emit("seek", { roomId: `${this.props.roomId}`, seekTime: parseFloat(value) });
   };
 
   handleSeekMouseUp = (e: any) => {
@@ -180,7 +180,7 @@ class Player extends Component<IPlayerProps, AppState> {
 
   componentDidMount() {
     console.log(this.props.roomId);
-    this.socket.emit("join_room", `WW${this.props.roomId}`);
+    this.socket.emit("join_room", `${this.props.roomId}`);
     this.socket.on("receive_msg", (data) => {
 
      // 
