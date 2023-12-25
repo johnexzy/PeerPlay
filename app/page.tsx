@@ -14,6 +14,7 @@ function Page() {
     <div className="flex flex-col justify-center items-center h-screen">
       <form className=" max-w-[500px] w-full" action={dispatch}>
         <div className="rounded-md bg-gray-50 p-4 md:p-6">
+          {JSON.stringify(state.data)}
           <div className="mb-4">
             <label htmlFor="source" className="mb-2 block text-sm font-medium">
               Choose a video source
