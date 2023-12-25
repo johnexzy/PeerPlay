@@ -7,7 +7,12 @@ declare global {
   google;
 }
 
-
+export type PlayType = {
+  id: string;
+  room_id: number;
+  link: string;
+  status: 'pending' | 'used';
+};
 interface AppState {
   url: string | null;
   pip: boolean;
@@ -28,7 +33,9 @@ interface DefaultEventsMap {
   [event: string]: (...args: any[]) => void;
 }
 interface IPlayerProps {
-  socket: Socket<DefaultEventsMap, DefaultEventsMap>
+  socket: Socket<DefaultEventsMap, DefaultEventsMap>,
+  url: string;
+  roomId: number;
 }
 
 export { DefaultEventsMap, IPlayerProps, AppState}

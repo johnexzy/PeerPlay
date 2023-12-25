@@ -12,7 +12,7 @@ class Player extends Component<IPlayerProps, AppState> {
   private urlInput: HTMLInputElement | null = null;
 
   state: AppState = {
-    url: 'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8',
+    url: this.props.url,
     pip: false,
     playing: false,
     controls: true,
@@ -45,6 +45,7 @@ class Player extends Component<IPlayerProps, AppState> {
       this.player.seekTo(this.state.played);
     }
   };
+
   handleStop = () => {
     this.setState({ url: null, playing: false });
   };
@@ -60,6 +61,7 @@ class Player extends Component<IPlayerProps, AppState> {
     );
   };
 
+  
   handleToggleLight = () => {
     this.setState({ light: !this.state.light });
   };
@@ -130,8 +132,6 @@ class Player extends Component<IPlayerProps, AppState> {
     console.log("onSeekChange", value);
     this.setState({ played: parseFloat(value) });
 
-
-
     this.socket.emit("seek", { roomId: "roomId", seekTime: parseFloat(value) });
   };
 
@@ -179,10 +179,10 @@ class Player extends Component<IPlayerProps, AppState> {
   socket = this.props.socket;
 
   componentDidMount() {
-    this.socket.emit("join_room", "roomId");
+    this.socket.emit("join_room", this.props.roomId);
     this.socket.on("receive_msg", (data) => {
-      
-     
+
+     // 
       if (this.state.playing !== data.data.playing) {
         console.log("Socket", data);
         this.setState(data.data);
@@ -266,3 +266,4 @@ class Player extends Component<IPlayerProps, AppState> {
 }
 
 export default Player;
+

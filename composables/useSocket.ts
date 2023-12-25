@@ -3,7 +3,9 @@ export default function useSocket() {
   // start the socket server
 
   try {
-    const socket = io(process.env.NEXT_PUBLIC_SOCKET || "http://localhost:4000");
+    const socket = io(
+      process.env.NEXT_PUBLIC_SOCKET || "http://localhost:4000"
+    );
 
     socket.on("connect", () => {
       console.log("Connected");
