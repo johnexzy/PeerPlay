@@ -14,7 +14,7 @@ class Player extends Component<IPlayerProps, AppState> {
   state: AppState = {
     url: this.props.url,
     pip: false,
-    playing: false,
+    playing: true,
     controls: true,
     light: true,
     volume: 1,

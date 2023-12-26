@@ -14,7 +14,16 @@ function Page() {
     <div className="flex flex-col justify-center items-center h-screen">
       <form className=" max-w-[500px] w-full" action={dispatch}>
         <div className="rounded-md bg-gray-50 p-4 md:p-6">
-          { state.data && <b>https://peer-play-azure.vercel.app/play/{state.data.id}</b>}
+          {state.data && (
+            <div className="text-[12px] mb-5">
+              <p className=" font-mono ">
+              <span className="font-bold">Link</span>: <span className="text-green-600">https://peer-play-azure.vercel.app/play/{state.data.id}</span>
+              </p>
+              <div className=" font-mono ">
+               <span className="font-bold">PeerPlayId</span>: <span className="text-green-600">{state.data.room_id}</span>
+              </div>
+            </div>
+          )}
           <div className="mb-4">
             <label htmlFor="source" className="mb-2 block text-sm font-medium">
               Choose a video source

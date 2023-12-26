@@ -12,7 +12,7 @@ export type State = {
     link?: string[];
   };
   message?: string | null;
-  data?: {id: string}
+  data?: {id: string; room_id: number}
 };
 const PlaySchema = (source?: string) =>
   z.object({
@@ -67,7 +67,7 @@ export async function createPlay(prevState: State, formData: FormData) {
     console.log(result.rows[0])
     return {
         message: "Added Play",
-        data: result.rows[0] as {id: string}
+        data: result.rows[0] as {id: string; room_id: number}
       };
   } catch (error) {
 
