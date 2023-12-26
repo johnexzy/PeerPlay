@@ -15,5 +15,5 @@ PeerPlay is a platform for shared video viewing experiences across different loc
 We welcome contributions! Whether it's suggesting new features, fixing bugs, or improving documentation, your input is valuable. Contribution Guidlines will be updated soon
 
 ## License:
-WatchWithMe is released under MIT, making it free to use, modify, and distribute.
+PeerPlay is released under MIT, making it free to use, modify, and distribute.
 
