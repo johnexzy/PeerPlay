@@ -1,6 +1,5 @@
 "use client"
 import React, { ChangeEvent, FormEvent, useState } from "react";
-import { VideoCameraIcon } from "@heroicons/react/24/outline";
 import { Button } from "@/components/button";
 import Player from "@/components/player";
 import useSocket from "@/composables/useSocket";
@@ -77,7 +76,7 @@ function RoomIdForm({ validId, setValidId, errorMessage, checkingId, onSubmit }:
               aria-describedby="link-error"
               onChange={(e: ChangeEvent<HTMLInputElement>) => setValidId(e.target.value)}
             />
-            <VideoCameraIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+         
           </div>
           <div id="link-error" aria-live="polite" className="mt-2 text-sm text-red-500">
             <p className="text-center !text-red-600">{errorMessage}</p>
