@@ -7,9 +7,7 @@ import "./index.scss";
 import { AppState, IPlayerProps } from "@/types";
 
 class Player extends Component<IPlayerProps, AppState> {
-  
   private player: ReactPlayer | null = null;
-  private urlInput: HTMLInputElement | null = null;
 
   state: AppState = {
     url: this.props.url,
@@ -20,6 +18,7 @@ class Player extends Component<IPlayerProps, AppState> {
     volume: 1,
     muted: false,
     played: 0,
+    playedSeconds: 0,
     loaded: 0,
     duration: 0,
     playbackRate: 1.0,
@@ -61,7 +60,6 @@ class Player extends Component<IPlayerProps, AppState> {
     );
   };
 
-  
   handleToggleLight = () => {
     this.setState({ light: !this.state.light });
   };
@@ -113,7 +111,7 @@ class Player extends Component<IPlayerProps, AppState> {
   };
 
   handlePause = () => {
-    console.log("onPause");
+    // console.log("onPause");
     this.setState({ playing: false });
 
     this.socket.emit("send_msg", {
@@ -128,11 +126,8 @@ class Player extends Component<IPlayerProps, AppState> {
   };
 
   handleSeekChange = (value: any) => {
-
-    console.log("onSeekChange", value);
+    // console.log("onSeekChange", value);
     this.setState({ played: parseFloat(value) });
-
-    this.socket.emit("seek", { roomId: `${this.props.roomId}`, seekTime: parseFloat(value) });
   };
 
   handleSeekMouseUp = (e: any) => {
@@ -144,12 +139,21 @@ class Player extends Component<IPlayerProps, AppState> {
 
   handleProgress = (state: ReactPlayerProps) => {
     if (!this.state.seeking) {
-      this.setState(state as AppState);
+      this.setState({...state} as AppState);
+      // console.log("onProgress", state);
+      this.socket.emit("send_msg", {
+        roomId: `${this.props.roomId}`,
+        data: { ...this.state },
+      });
+      this.socket.emit("seek", {
+        roomId: `${this.props.roomId}`,
+        seekTime: parseFloat(state.playedSeconds),
+      });
     }
   };
 
   handleEnded = () => {
-    console.log("onEnded");
+    // console.log("onEnded");
     this.setState({ playing: this.state.loop });
   };
 
@@ -165,9 +169,9 @@ class Player extends Component<IPlayerProps, AppState> {
   };
 
   syncReady = () => {
-    console.log("syncReady");
-    this.setState({ muted: false})
-  }
+    // console.log("syncReady");
+    this.setState({ muted: false });
+  };
   renderLoadButton = (url: string, label: string) => {
     return <button onClick={() => this.load(url)}>{label}</button>;
   };
@@ -179,25 +183,29 @@ class Player extends Component<IPlayerProps, AppState> {
   socket = this.props.socket;
 
   componentDidMount() {
-    console.log(this.props.roomId);
+    // console.log(this.props.roomId);
     this.socket.emit("join_room", `${this.props.roomId}`);
     this.socket.on("receive_msg", (data) => {
-
-     // 
+      //
       if (this.state.playing !== data.data.playing) {
-        console.log("Socket", data);
+        // console.log("Socket", data);
         this.setState(data.data);
       }
-    
     });
+    // Listening for 'seek' events from the socket
     this.socket.on("seek", (data) => {
-      if (this.state.played !== data.seekTime) {
-      console.log("Seek Event", data);
+      // Check if the seek time is outside a 2-second range of the current play time
+      const isSeekOutOfRange = data.seekTime < this.state.playedSeconds - 1 || data.seekTime > this.state.playedSeconds + 1;
+      if (isSeekOutOfRange) {
+        console.log("Seek Event", data, this.state);
 
+        // If the player is defined, move to the specified seek time
         if (this.player) {
-          // this.handlePause()
-          this.player.seekTo(data.seekTime);
-          // this.handlePlay();
+          try {
+            this.player.seekTo(data.seekTime);
+          } catch (error) {
+            console.error("Error seeking to time:", error);
+          }
         }
       }
     });
@@ -233,7 +241,6 @@ class Player extends Component<IPlayerProps, AppState> {
                 url={url as string}
                 pip={pip}
                 playing={playing}
-                
                 forceVideo
                 controls={controls}
                 loop={loop}
@@ -256,7 +263,6 @@ class Player extends Component<IPlayerProps, AppState> {
                 onPlaybackQualityChange={(e: ChangeEvent) =>
                   console.log("onPlaybackQualityChange", e)
                 }
-                
               />
             </div>
           </div>
@@ -267,4 +273,3 @@ class Player extends Component<IPlayerProps, AppState> {
 }
 
 export default Player;
-

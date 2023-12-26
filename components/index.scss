@@ -10,10 +10,10 @@
     left: 0;
     right: 0;
     margin: auto;
-    height: auto !important;
+    // height: auto !important;
     max-width: 1352px;
     width: 100% !important;
-    @apply flex flex-col justify-center items-center h-min;
+    @apply flex flex-col justify-center items-center h-screen;
     video {
         
         @apply md:rounded-2xl rounded-lg;

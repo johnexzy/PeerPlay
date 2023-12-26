@@ -22,6 +22,7 @@ interface AppState {
   volume: number;
   muted: boolean;
   played: number;
+  playedSeconds: number;
   loaded: number;
   duration: number;
   playbackRate: number;
