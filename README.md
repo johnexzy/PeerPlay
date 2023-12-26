@@ -13,7 +13,7 @@ PeerPlay is a platform for shared video viewing experiences across different loc
 - Privacy-Focused: Committed to user privacy and data security, ensuring a safe and secure environment for all interactions.
 
 ## Contributing:
-We welcome contributions! Whether it's suggesting new features, fixing bugs, or improving documentation, your input is valuable. Check out our contribution guidelines for more information.
+We welcome contributions! Whether it's suggesting new features, fixing bugs, or improving documentation, your input is valuable. Contribution Guidlines will be updated soon
 
 ## License:
 WatchWithMe is released under MIT, making it free to use, modify, and distribute.
