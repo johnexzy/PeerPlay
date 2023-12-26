@@ -1,6 +1,6 @@
 # PeerPlay: Real-Time Shared Video Viewing Experience
 
-PeerPlay is a novel, open-source platform for shared video viewing experiences across different locations. Utilizing the latest web technologies including Next.js 14 and AppRouter, it provides a seamless, real-time interactive streaming experience.
+PeerPlay is a platform for shared video viewing experiences across different locations. Utilizing Next.js 14 and AppRouter, it provides a seamless, real-time interactive streaming experience.
 
 
 ## Key Features:
