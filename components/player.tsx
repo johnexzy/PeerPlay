@@ -194,7 +194,7 @@ class Player extends Component<IPlayerProps, AppState> {
     // Listening for 'seek' events from the socket
     this.socket.on("seek", (data) => {
       // Check if the seek time is outside a 2-second range of the current play time
-      const isSeekOutOfRange = data.seekTime < this.state.playedSeconds - 2 || data.seekTime > this.state.playedSeconds + 2;
+      const isSeekOutOfRange = data.seekTime < this.state.playedSeconds - 1.2 || data.seekTime > this.state.playedSeconds + 1.2;
       if (isSeekOutOfRange) {
         console.log("Seek Event", data, this.state);
 
