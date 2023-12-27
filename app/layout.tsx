@@ -10,7 +10,8 @@ export const metadata: Metadata = {
   applicationName: 'PeerPlay',
   authors: { name: "John Oba", url: 'https://github.com/johnexzy'},
   keywords: ["PeerPlay", "RealTime Video Watching"],
-  
+  openGraph: {images: "https://res.cloudinary.com/dpq6dieap/image/upload/f_auto,q_auto/v1/peerplay/wxyq5nprra168utmm9re"}
+
 }
 
 export default function RootLayout({
