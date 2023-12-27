@@ -187,10 +187,10 @@ class Player extends Component<IPlayerProps, AppState> {
     this.socket.emit("join_room", `${this.props.roomId}`);
     this.socket.on("receive_msg", (data) => {
 
-        // console.log("Socket", data);
         this.setState(data.data);
 
     });
+    
     // Listening for 'seek' events from the socket
     this.socket.on("seek", (data) => {
       // Check if the seek time is outside a 2-second range of the current play time
