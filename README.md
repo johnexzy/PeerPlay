@@ -1,5 +1,10 @@
 # PeerPlay: Real-Time Shared Video Viewing Experience
 
+
+<div align="center">
+  <img src="https://res.cloudinary.com/dpq6dieap/image/upload/f_auto,q_auto/v1/peerplay/wxyq5nprra168utmm9re" alt="PeerPlay is a platform for shared video viewing experiences across different locations. Utilizing Next.js 14 and AppRouter, it provides a seamless, real-time interactive streaming experience.">
+</div>
+
 PeerPlay is a platform for shared video viewing experiences across different locations. Utilizing Next.js 14 and AppRouter, it provides a seamless, real-time interactive streaming experience.
 
 

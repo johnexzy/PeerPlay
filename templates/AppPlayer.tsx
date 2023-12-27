@@ -37,7 +37,7 @@ function AppPlayer({ url, roomId }: AppPlayerProps) {
         setIsRoomIdValid(false);
       }
       setCheckingId(false);
-    }, 2000);
+    }, 1000);
   };
 
   return (

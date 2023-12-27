@@ -5,22 +5,40 @@ import { VideoCameraIcon, LinkIcon } from "@heroicons/react/24/outline";
 import { sources } from "@/utils/sources";
 import { Button } from "@/components/button";
 import { createPlay } from "./lib/actions";
+import Image from "next/image";
+import PeerPlayImg from "@/assets/images/peerplay-home.png"
 
 function Page() {
   const initialState = { message: "", errors: {}, data: undefined };
-
   const [state, dispatch] = useFormState(createPlay, initialState);
+
   return (
-    <div className="flex flex-col justify-center items-center h-screen">
-      <form className=" max-w-[500px] w-full" action={dispatch}>
-        <div className="rounded-md bg-gray-50 p-4 md:p-6">
+    <div className="flex flex-col justify-center items-center h-screen p-4">
+      <form className="max-w-[600px] w-full" action={dispatch}>
+        <div className="mb-6 text-center">
+          <Image
+            src={PeerPlayImg}
+            width={661}
+            alt="PeerPlay platform for shared video viewing."
+          />
+          <h1 className="text-lg text-gray-800 font-semibold my-4">
+           Distance never disrupts the joy of watching together with PeerPlay
+          </h1>
+        </div>
+
+        <div className="rounded-md bg-gray-50 p-6 shadow-sm">
+
           {state.data && (
             <div className="text-[12px] mb-5">
               <p className=" font-mono ">
-              <span className="font-bold">Link</span>: <span className="text-green-600">https://peer-play-azure.vercel.app/play/{state.data.id}</span>
+                <span className="font-bold">Link</span>:{" "}
+                <span className="text-green-600">
+                  https://peer-play-azure.vercel.app/play/{state.data.id}
+                </span>
               </p>
               <div className=" font-mono ">
-               <span className="font-bold">PeerPlayId</span>: <span className="text-green-600">{state.data.room_id}</span>
+                <span className="font-bold">PeerPlayId</span>:{" "}
+                <span className="text-green-600">{state.data.room_id}</span>
               </div>
             </div>
           )}
