@@ -4,6 +4,26 @@ export const sources = [
         label: 'YouTube',
     },
     {
+        id: 'twitch',
+        label: 'Twitch',
+    },
+    {
+        id: 'streamable',
+        label: 'Streamable',
+    },
+    {
+        id: 'dailymotion',
+        label: 'Dailymotion',
+    },
+    {
+        id: 'vidyard',
+        label: 'Vidyard',
+    },
+    {
+        id: 'facebook',
+        label: 'Facebook',
+    },
+    {
         id: 'vimeo',
         label: 'Vimeo',
     },
