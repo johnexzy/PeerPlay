@@ -4,7 +4,8 @@ import { z } from "zod";
 import { sql } from "@vercel/postgres";
 import { redirect } from "next/navigation";
 
-const youtubeRegex = /^https:\/\/www\.youtube\.com\/watch\?v=[\w-]+(&[\w-]+)*$/;
+const youtubeRegex = /^(https:\/\/(www\.|m\.)?youtube\.com\/watch\?v=[\w-]+(&[\w-]+)*$)|(https:\/\/youtu\.be\/[\w-]+(\?[\w-]+=[\w-]+(&[\w-]+)*)*)$/;
+
 
 export type State = {
   errors?: {

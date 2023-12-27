@@ -4,7 +4,7 @@ async function createPlays() {
   try {
     await sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
 
-    // Create the "invoices" table if it doesn't exist
+    // Create the "plays" table if it doesn't exist
     const createTable = await sql`
     CREATE TABLE IF NOT EXISTS plays (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
@@ -20,7 +20,7 @@ async function createPlays() {
       createTable,
     };
   } catch (error) {
-    console.error('Error seeding invoices:', error);
+    console.error('Error seeding plays:', error);
     throw error;
   }
 }
