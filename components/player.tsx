@@ -138,7 +138,7 @@ class Player extends Component<IPlayerProps, AppState> {
   };
 
   handleProgress = (state: ReactPlayerProps) => {
-    if (!this.state.seeking) {
+    if (!this.state.seeking && !this.state.playing) {
       this.setState({...state} as AppState);
       // console.log("onProgress", state);
       this.socket.emit("send_msg", {
@@ -186,16 +186,15 @@ class Player extends Component<IPlayerProps, AppState> {
     // console.log(this.props.roomId);
     this.socket.emit("join_room", `${this.props.roomId}`);
     this.socket.on("receive_msg", (data) => {
-      //
-      if (this.state.playing !== data.data.playing) {
+
         // console.log("Socket", data);
         this.setState(data.data);
-      }
+
     });
     // Listening for 'seek' events from the socket
     this.socket.on("seek", (data) => {
       // Check if the seek time is outside a 2-second range of the current play time
-      const isSeekOutOfRange = data.seekTime < this.state.playedSeconds - 1 || data.seekTime > this.state.playedSeconds + 1;
+      const isSeekOutOfRange = data.seekTime < this.state.playedSeconds - 2 || data.seekTime > this.state.playedSeconds + 2;
       if (isSeekOutOfRange) {
         console.log("Seek Event", data, this.state);
 
