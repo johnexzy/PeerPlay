@@ -4,7 +4,7 @@ import { z } from "zod";
 import { sql } from "@vercel/postgres";
 import { redirect } from "next/navigation";
 
-export type State = {
+export type FormState = {
   errors?: {
     roomId?: string[];
     link?: string[];
@@ -18,7 +18,7 @@ const twitchRegex = /^(https:\/\/www\.twitch\.tv\/[\w-]+)$/;
 const streamableRegex = /^(https:\/\/streamable\.com\/[\w-]+)$/;
 const dailymotionRegex = /^(https:\/\/www\.dailymotion\.com\/video\/[\w-]+)$/;
 const vidyardRegex = /^(https:\/\/(share\.|video\.)vidyard\.com\/watch\/[\w-]+)$/;
-const facebookRegex = /^(https:\/\/(www\.|web\.)facebook\.com\/[\w-]+\/videos\/[\w-]+)$/;
+const facebookRegex = /^(https:\/\/)(web\.facebook\.com\/watch\?v=\d+|fb\.watch\/[\w-]+\/|web\.facebook\.com\/\d+\/videos\/\d+\/)$/;
 const vimeoRegex = /^(https:\/\/vimeo\.com\/[\w-]+)$/;
 
 const PlaySchema = (source?: string) =>
@@ -58,7 +58,7 @@ const PlaySchema = (source?: string) =>
     date: z.string(),
   });
 
-export async function createPlay(prevState: State, formData: FormData) {
+export async function createPlay(prevState: FormState, formData: FormData) {
   const CreatePlaySchema = PlaySchema(formData.get("source") as string).omit({
     id: true,
     date: true,
