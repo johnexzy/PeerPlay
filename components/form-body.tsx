@@ -15,7 +15,7 @@ export default function FormBody({ state }: { state: FormState, sources: { id: s
             <p className=" font-mono ">
               <span className="font-bold">Link</span>:{" "}
               <span className="text-green-600">
-                https://peer-play.space/play/{state.data.id}
+                https://peerplay.space/play/{state.data.id}
               </span>
             </p>
             <div className=" font-mono ">
