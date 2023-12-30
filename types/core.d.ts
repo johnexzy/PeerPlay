@@ -28,6 +28,7 @@ interface AppState {
   playbackRate: number;
   loop: boolean;
   seeking: boolean;
+  init: boolean;
 }
 
 interface DefaultEventsMap {
