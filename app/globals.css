@@ -2,6 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+     /* font-family */
+     --monumnet: "MonumentRegular";
+     --monumentUltraBold: "MonumentUltraBold";
+
+     --primary: #05011A;
+}
+
+@font-face {
+  font-family: "MonumentRegular";
+  src: url("../assets/fonts/MonumentExtended-Regular.otf");
+}
+@font-face {
+  font-family: "MonumentUltraBold";
+  src: url("../assets/fonts/MonumentExtended-Ultrabold.otf");
+}
+
 input[type='number'] {
   -moz-appearance: textfield;
   appearance: textfield;
@@ -18,5 +35,5 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 body {
- background-color: bisque;
+ background-color:  #05011A;;
 }
