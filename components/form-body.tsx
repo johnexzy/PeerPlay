@@ -86,7 +86,7 @@ export default function FormBody({
                   disabled={selectedOption === ""}
                   type="text"
                   placeholder="Drop video link"
-                  className="peer block w-full rounded-[4px] border border-gray-200 py-3 pl-10 text-[16px] outline-2 text-primary-500 placeholder:text-primary/20"
+                  className="peer block w-full rounded-[4px] border border-gray-100 py-3 pl-10 text-[16px] outline-2 text-primary-500 placeholder:text-primary/20"
                   required
                   aria-describedby="link-error"
                 />
