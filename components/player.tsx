@@ -5,6 +5,7 @@ import screenfull from "screenfull";
 import ReactPlayer, { ReactPlayerProps } from "react-player";
 import "./index.scss";
 import { AppState, IPlayerProps } from "@/types";
+import Loader from "./Loader";
 
 class Player extends Component<IPlayerProps, AppState> {
   private player: ReactPlayer | null = null;
@@ -24,6 +25,7 @@ class Player extends Component<IPlayerProps, AppState> {
     playbackRate: 1.0,
     loop: false,
     seeking: false,
+    init: false,
   };
 
   load = (url: string) => {
@@ -139,7 +141,7 @@ class Player extends Component<IPlayerProps, AppState> {
 
   handleProgress = (state: ReactPlayerProps) => {
     if (!this.state.seeking && !this.state.playing) {
-      this.setState({...state} as AppState);
+      this.setState({ ...state } as AppState);
       // console.log("onProgress", state);
       this.socket.emit("send_msg", {
         roomId: `${this.props.roomId}`,
@@ -169,8 +171,8 @@ class Player extends Component<IPlayerProps, AppState> {
   };
 
   syncReady = () => {
-    // console.log("syncReady");
-    this.setState({ muted: false });
+    console.log("syncReady");
+    this.setState({ init: true });
   };
   renderLoadButton = (url: string, label: string) => {
     return <button onClick={() => this.load(url)}>{label}</button>;
@@ -186,15 +188,15 @@ class Player extends Component<IPlayerProps, AppState> {
     // console.log(this.props.roomId);
     this.socket.emit("join_room", `${this.props.roomId}`);
     this.socket.on("receive_msg", (data) => {
-
-        this.setState(data.data);
-
+      this.setState(data.data);
     });
-    
+
     // Listening for 'seek' events from the socket
     this.socket.on("seek", (data) => {
       // Check if the seek time is outside a 2-second range of the current play time
-      const isSeekOutOfRange = data.seekTime < this.state.playedSeconds - 1.2 || data.seekTime > this.state.playedSeconds + 1.2;
+      const isSeekOutOfRange =
+        data.seekTime < this.state.playedSeconds - 1.2 ||
+        data.seekTime > this.state.playedSeconds + 1.2;
       if (isSeekOutOfRange) {
         console.log("Seek Event", data, this.state);
 
@@ -228,7 +230,7 @@ class Player extends Component<IPlayerProps, AppState> {
     const SEPARATOR = " ·";
 
     return (
-      <div className="app">
+      <div className="app ">
         <section className="section">
           <div className="player-wrapper">
             <div className="player">
@@ -266,6 +268,11 @@ class Player extends Component<IPlayerProps, AppState> {
             </div>
           </div>
         </section>
+        {!this.state.init && (
+          <div className="top-[50%] left-[50%] absolute">
+            <Loader size="lg" color="white" foregroundColor="bisque" />
+          </div>
+        )}
       </div>
     );
   }
