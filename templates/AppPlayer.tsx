@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import { Button } from "@/components/button";
 import Player from "@/components/player";
@@ -33,7 +33,7 @@ function AppPlayer({ url, roomId }: AppPlayerProps) {
         setIsRoomIdValid(true);
         setErrorMessage("");
       } else {
-        setErrorMessage("Id Check failed");
+        setErrorMessage("PIN is invalid");
         setIsRoomIdValid(false);
       }
       setCheckingId(false);
@@ -57,28 +57,47 @@ function AppPlayer({ url, roomId }: AppPlayerProps) {
   );
 }
 
-function RoomIdForm({ validId, setValidId, errorMessage, checkingId, onSubmit }: RoomIdFormProps) {
+function RoomIdForm({
+  validId,
+  setValidId,
+  errorMessage,
+  checkingId,
+  onSubmit,
+}: RoomIdFormProps) {
   return (
     <div className="flex flex-col justify-center items-center h-screen">
-      <form className="max-w-[500px] w-full" onSubmit={onSubmit}>
-        <div className="rounded-md bg-gray-50 p-4 md:p-6">
+      <form className="max-w-[416px] w-full" onSubmit={onSubmit}>
+        <div className="rounded-md bg-white p-4 md:p-6">
           <div className="mb-4">
-            <label htmlFor="roomId" className="mb-2 block text-sm font-medium">
-              Enter PeerPlay Id
+            <label
+              htmlFor="roomId"
+              className="mb-2 block text-sm text-primary/70"
+            >
+              Enter PeerPlay PIN
             </label>
-            <input
-              id="roomId"
-              name="roomId"
-              type="text"
-              placeholder="XXXXXX"
-              className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-              required
-              aria-describedby="link-error"
-              onChange={(e: ChangeEvent<HTMLInputElement>) => setValidId(e.target.value)}
-            />
-         
+            <div className="relative my-2 rounded-md">
+              <div className="relative">
+                <input
+                  id="roomId"
+                  name="roomId"
+                  type="text"
+                  placeholder="000000"
+                  maxLength={6}
+                  className="peer block w-full rounded-[4px] border border-gray-100 py-3  text-[16px] text-primary-500 placeholder:text-primary/20 focus:border-secondary focus:shadow-smLight"
+                  required
+                  aria-describedby="link-error"
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    setValidId(e.target.value)
+                  }
+                />
+              </div>
+            </div>
           </div>
-          <div id="link-error" aria-live="polite" className="mt-2 text-sm text-red-500">
+          <div
+            id="link-error"
+            aria-live="polite"
+            className="mt-2 text-sm text-red-500"
+          >
             <p className="text-center !text-red-600">{errorMessage}</p>
           </div>
           <div className="mt-6 flex justify-end gap-4">

@@ -13,17 +13,8 @@ function Page() {
 
   return (
     <div className="flex flex-col justify-center items-center h-screen p-4">
-      <form className="max-w-[600px] w-full" action={dispatch}>
-        <div className="mb-6 text-center">
-          <Image
-            src={PeerPlayImg}
-            width={661}
-            alt="PeerPlay platform for shared video viewing."
-          />
-          <h1 className="text-lg text-gray-800 font-semibold my-4">
-            Distance never disrupts the joy of watching together with PeerPlay
-          </h1>
-        </div>
+      <form className="max-w-[416px] w-full" action={dispatch}>
+    
         <FormBody sources={sources} state={state} />
       </form>
     </div>

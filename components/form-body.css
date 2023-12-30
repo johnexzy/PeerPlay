@@ -1,0 +1,6 @@
+.form-body {
+    @apply rounded-[4px] bg-white py-10 px-5 shadow-sm;
+}
+select {
+    @apply w-full rounded-[4px] border border-gray-200 py-3 pl-10 text-[16px] outline-2 text-primary-500 placeholder:text-primary/20;
+}
