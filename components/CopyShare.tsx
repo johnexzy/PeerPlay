@@ -38,9 +38,6 @@ function CopyShare({ link, pin }: { link: string; pin: string }) {
       }
   }, [isCopied, isCopiedDetails]);
 
-  useEffect(() => {
-    navigator.share;
-  });
 
   return (
     <div className="flex flex-col gap-6">
@@ -58,6 +55,7 @@ function CopyShare({ link, pin }: { link: string; pin: string }) {
             <button
               onClick={() => handleCopyToClipboard()}
               className="p-2 flex"
+              type="button"
             >
               {isCopied && (
                 <Icon
@@ -85,6 +83,7 @@ function CopyShare({ link, pin }: { link: string; pin: string }) {
       </div>
       <div className="mt-12 flex w-full gap-4">
         <Button
+         type="button"
           onClick={() =>
             handleCopyToClipboard(
               `Let's watch together on Peer Play: ${link}.\n\nPeerPlayP PIN: ${pin}`
