@@ -10,33 +10,25 @@ interface AppPlayerProps {
 }
 
 interface RoomIdFormProps {
-  validId: string;
-  setValidId: (id: string) => void;
-  errorMessage: string;
-  checkingId: boolean;
+  setUsername: (val: string) => void;
+  joining: boolean;
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
 }
 
 function AppPlayer({ url, roomId }: AppPlayerProps) {
   const socket = useSocket()!;
-  const [validId, setValidId] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
   const [isRoomIdValid, setIsRoomIdValid] = useState(false);
-  const [checkingId, setCheckingId] = useState(false);
+  const [username, setUsername] = useState("");
+  const [joining, setJoining] = useState(false);
 
   const checkRoomId = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setCheckingId(true);
+    setJoining(true);
 
     setTimeout(() => {
-      if (validId === `${roomId}`) {
-        setIsRoomIdValid(true);
-        setErrorMessage("");
-      } else {
-        setErrorMessage("PIN is invalid");
-        setIsRoomIdValid(false);
-      }
-      setCheckingId(false);
+      setIsRoomIdValid(true);
+
+      setJoining(false);
     }, 1000);
   };
 
@@ -44,10 +36,8 @@ function AppPlayer({ url, roomId }: AppPlayerProps) {
     <div suppressHydrationWarning>
       {!isRoomIdValid ? (
         <RoomIdForm
-          validId={validId}
-          setValidId={setValidId}
-          errorMessage={errorMessage}
-          checkingId={checkingId}
+          setUsername={setUsername}
+          joining={joining}
           onSubmit={checkRoomId}
         />
       ) : (
@@ -58,10 +48,8 @@ function AppPlayer({ url, roomId }: AppPlayerProps) {
 }
 
 function RoomIdForm({
-  validId,
-  setValidId,
-  errorMessage,
-  checkingId,
+  setUsername,
+  joining,
   onSubmit,
 }: RoomIdFormProps) {
   return (
@@ -73,35 +61,26 @@ function RoomIdForm({
               htmlFor="roomId"
               className="mb-2 block text-sm text-primary/70"
             >
-              Enter PeerPlay PIN
+              Enter a username (optional)
             </label>
             <div className="relative my-2 rounded-md">
               <div className="relative">
                 <input
-                  id="roomId"
-                  name="roomId"
+                  id="username"
+                  name="username"
                   type="text"
-                  placeholder="000000"
-                  maxLength={6}
+                  placeholder="Username"
                   className="peer block w-full rounded-[4px] border border-gray-100 py-3  text-[16px] text-primary-500 placeholder:text-primary/20 focus:border-secondary focus:shadow-smLight"
-                  required
                   aria-describedby="link-error"
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    setValidId(e.target.value)
+                    setUsername(e.target.value)
                   }
                 />
               </div>
             </div>
           </div>
-          <div
-            id="link-error"
-            aria-live="polite"
-            className="mt-2 text-sm text-red-500"
-          >
-            <p className="text-center !text-red-600">{errorMessage}</p>
-          </div>
           <div className="mt-6 flex justify-end gap-4">
-            <Button type="submit">{checkingId ? "Checking..." : "Join"}</Button>
+            <Button type="submit">{joining ? "Joining..." : "Join"}</Button>
           </div>
         </div>
       </form>
