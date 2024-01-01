@@ -231,7 +231,12 @@ class Player extends Component<IPlayerProps, AppState> {
 
     return (
       <div className="app ">
-        <section className="section">
+        {!this.state.init && (
+          <div className="flex justify-center items-center h-screen">
+            <Loader size="lg" color="white" foregroundColor="bisque" />
+          </div>
+        )}
+        <section className={`section`}>
           <div className="player-wrapper">
             <div className="player">
               <ReactPlayer
@@ -268,11 +273,6 @@ class Player extends Component<IPlayerProps, AppState> {
             </div>
           </div>
         </section>
-        {!this.state.init && (
-          <div className="top-[50%] left-[50%] absolute">
-            <Loader size="lg" color="white" foregroundColor="bisque" />
-          </div>
-        )}
       </div>
     );
   }
