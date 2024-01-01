@@ -18,7 +18,7 @@ const twitchRegex = /^(https:\/\/www\.twitch\.tv\/[\w-]+)$/;
 const streamableRegex = /^(https:\/\/streamable\.com\/[\w-]+)$/;
 const dailymotionRegex = /^(https:\/\/www\.dailymotion\.com\/video\/[\w-]+)$/;
 const vidyardRegex = /^(https:\/\/(share\.|video\.)vidyard\.com\/watch\/[\w-]+)$/;
-const facebookRegex = /^(https:\/\/(www\.|web\.)facebook\.com\/(?:[\w.-]+\/)*videos\/[\w-]+\/[\w-]+)|(https:\/\/fb\.watch\/[\w-]+(\?[\w-]+=[\w-]+(&[\w-]+)*)*)$/;
+const facebookRegex = /^(https:\/\/(www\.|web\.)facebook\.com\/[\w.-]+\/videos\/[\w-]+\/[\w-]+)|(https:\/\/fb\.watch\/[\w-]+\/?(\?.*)?)$/;
 const vimeoRegex = /^(https:\/\/vimeo\.com\/[\w-]+)$/;
 
 const PlaySchema = (source?: string) =>
