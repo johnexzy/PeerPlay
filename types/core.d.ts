@@ -38,6 +38,7 @@ interface IPlayerProps {
   socket: Socket<DefaultEventsMap, DefaultEventsMap>,
   url: string;
   roomId: number;
+  username: string;
 }
 
 export { DefaultEventsMap, IPlayerProps, AppState}

@@ -41,17 +41,18 @@ function AppPlayer({ url, roomId }: AppPlayerProps) {
           onSubmit={checkRoomId}
         />
       ) : (
-        <Player url={url} roomId={roomId} socket={socket} />
+        <Player
+          url={url}
+          roomId={roomId}
+          socket={socket}
+          username={username || "User #" + Math.floor(Math.random() * 1000)}
+        />
       )}
     </div>
   );
 }
 
-function RoomIdForm({
-  setUsername,
-  joining,
-  onSubmit,
-}: RoomIdFormProps) {
+function RoomIdForm({ setUsername, joining, onSubmit }: RoomIdFormProps) {
   return (
     <div className="flex flex-col justify-center items-center h-screen">
       <form className="max-w-[416px] w-full" onSubmit={onSubmit}>
