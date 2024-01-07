@@ -1,12 +1,13 @@
 "use client";
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { Button } from "@/components/button";
 import Player from "@/components/player";
-import useSocket from "@/composables/useSocket";
+import Socket from "@/composables/useSocket";
+import ChatPage from "@/components/chat/Chat";
 
 interface AppPlayerProps {
   url: string;
-  roomId: number;
+  roomId: number | string;
 }
 
 interface RoomIdFormProps {
@@ -16,20 +17,25 @@ interface RoomIdFormProps {
 }
 
 function AppPlayer({ url, roomId }: AppPlayerProps) {
-  const socket = useSocket()!;
   const [isRoomIdValid, setIsRoomIdValid] = useState(false);
   const [username, setUsername] = useState("");
   const [joining, setJoining] = useState(false);
+  const socket = Socket()!;
 
   const checkRoomId = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setJoining(true);
+    if (!isRoomIdValid) {
+      setJoining(true);
 
-    setTimeout(() => {
-      setIsRoomIdValid(true);
+      socket.emit("join_room", roomId);
+      console.log("socket.emit");
 
-      setJoining(false);
-    }, 1000);
+      setTimeout(() => {
+        setIsRoomIdValid(true);
+
+        setJoining(false);
+      }, 1000);
+    }
   };
 
   return (
@@ -41,17 +47,24 @@ function AppPlayer({ url, roomId }: AppPlayerProps) {
           onSubmit={checkRoomId}
         />
       ) : (
-        <Player url={url} roomId={roomId} socket={socket} />
+        <div style={{ display: !isRoomIdValid ? "none" : "" }}>
+          <Player
+            url={url}
+            roomId={roomId}
+            socket={socket}
+            username={username || "User #" + Math.floor(Math.random() * 1000)}
+          />
+        </div>
       )}
+
+      <div style={{ display: !isRoomIdValid ? "none" : "" }}>
+        <ChatPage socket={socket} roomId={roomId} username={username} />
+      </div>
     </div>
   );
 }
 
-function RoomIdForm({
-  setUsername,
-  joining,
-  onSubmit,
-}: RoomIdFormProps) {
+function RoomIdForm({ setUsername, joining, onSubmit }: RoomIdFormProps) {
   return (
     <div className="flex flex-col justify-center items-center h-screen">
       <form className="max-w-[416px] w-full" onSubmit={onSubmit}>

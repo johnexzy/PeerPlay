@@ -6,6 +6,7 @@ import ReactPlayer, { ReactPlayerProps } from "react-player";
 import "./index.scss";
 import { AppState, IPlayerProps } from "@/types";
 import Loader from "./Loader";
+import ChatPage from "./chat/Chat";
 
 class Player extends Component<IPlayerProps, AppState> {
   private player: ReactPlayer | null = null;
@@ -96,8 +97,9 @@ class Player extends Component<IPlayerProps, AppState> {
     this.setState({ playing: true });
 
     this.socket.emit("send_msg", {
-      roomId: `${this.props.roomId}`,
+      roomId: `M${this.props.roomId}`,
       message: "Play",
+      type: "media",
       data: { ...this.state, playing: true },
     });
   };
@@ -117,8 +119,9 @@ class Player extends Component<IPlayerProps, AppState> {
     this.setState({ playing: false });
 
     this.socket.emit("send_msg", {
-      roomId: `${this.props.roomId}`,
+      roomId: `M${this.props.roomId}`,
       message: "Pause",
+      type: "media",
       data: { ...this.state, playing: false },
     });
   };
@@ -144,11 +147,12 @@ class Player extends Component<IPlayerProps, AppState> {
       this.setState({ ...state } as AppState);
       // console.log("onProgress", state);
       this.socket.emit("send_msg", {
-        roomId: `${this.props.roomId}`,
+        roomId: `M${this.props.roomId}`,
+        type: "media",
         data: { ...this.state },
       });
       this.socket.emit("seek", {
-        roomId: `${this.props.roomId}`,
+        roomId: `M${this.props.roomId}`,
         seekTime: parseFloat(state.playedSeconds),
       });
     }
@@ -185,11 +189,17 @@ class Player extends Component<IPlayerProps, AppState> {
   socket = this.props.socket;
 
   componentDidMount() {
-    // console.log(this.props.roomId);
-    this.socket.emit("join_room", `${this.props.roomId}`);
+    // console.log(`M${this.props.roomId}`);
+    this.socket.emit("join_room", `M${this.props.roomId}`);
     this.socket.on("receive_msg", (data) => {
-      this.setState(data.data);
+      console.log(data);
+
+      if (data.type === "media") {
+        this.setState(data.data);
+      }
     });
+
+
 
     // Listening for 'seek' events from the socket
     this.socket.on("seek", (data) => {
@@ -272,6 +282,14 @@ class Player extends Component<IPlayerProps, AppState> {
               />
             </div>
           </div>
+
+          {/* {this.state.init && ( */}
+            {/* <ChatPage
+              socket={this.socket}
+              roomId={`${this.props.roomId}`}
+              username={this.props.username}
+            /> */}
+          {/* )} */}
         </section>
       </div>
     );
