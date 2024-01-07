@@ -31,13 +31,14 @@ interface AppState {
   init: boolean;
 }
 
+export type S = Socket<DefaultEventsMap, DefaultEventsMap>
 interface DefaultEventsMap {
   [event: string]: (...args: any[]) => void;
 }
 interface IPlayerProps {
-  socket: Socket<DefaultEventsMap, DefaultEventsMap>,
+  socket: S;
   url: string;
-  roomId: number;
+  roomId: number | string;
   username: string;
 }
 

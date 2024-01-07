@@ -1,8 +1,9 @@
 "use client";
 import styles from "./page.module.css";
 import { useEffect, useState } from "react";
-import ChatPage from "./Chat";
+
 import initialize from "@/composables/useSocket";
+import ChatPage from "@/components/chat/Chat";
 
 export default function Home() {
   const [showChat, setShowChat] = useState(false);
