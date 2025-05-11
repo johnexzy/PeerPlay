@@ -20,6 +20,7 @@ export default function FormBody({
 }) {
   const { pending } = useFormStatus();
   const [selectedOption, setSelectedOption] = useState("");
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
 
   const handleChange = (event: any) => {
     setSelectedOption(event.target.value);
@@ -37,7 +38,7 @@ export default function FormBody({
         </div>
       </div>
       {state.data ? (
-        <CopyShare link={`https://peerplay.space/play/${state.data.id}`} pin={state.data.room_id.toString()} />
+        <CopyShare link={`${baseUrl}/play/${state.data.id}`} pin={state.data.room_id.toString()} />
       ) : (
         <div>
           <div className="mb-4">
