@@ -15,8 +15,14 @@
     width: 100% !important;
     @apply flex flex-col justify-center items-center h-screen;
     video {
-        
         @apply md:rounded-2xl rounded-lg;
     }
+  }
 
+  .section {
+    @apply relative;
+
+    .player-wrapper {
+      @apply relative z-0;
+    }
   }

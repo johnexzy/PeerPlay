@@ -1,17 +1,19 @@
 "use client";
 
-import React, { Component, ChangeEvent, MouseEventHandler } from "react";
+import React, { Component, ChangeEvent } from "react";
 import screenfull from "screenfull";
 import ReactPlayer, { ReactPlayerProps } from "react-player";
 import "./index.scss";
 import { AppState, IPlayerProps } from "@/types";
 import Loader from "./Loader";
-import ChatPage from "./chat/Chat";
+import ActiveUsers from "./chat/ActiveUsers";
 
-class Player extends Component<IPlayerProps, AppState> {
+class Player extends Component<IPlayerProps, AppState & { activeUsers: { username: string; id: string }[] }> {
   private player: ReactPlayer | null = null;
 
-  state: AppState = {
+  state: AppState & {
+    activeUsers: { username: string; id: string }[];
+  } = {
     url: this.props.url,
     pip: false,
     playing: true,
@@ -27,6 +29,7 @@ class Player extends Component<IPlayerProps, AppState> {
     loop: false,
     seeking: false,
     init: false,
+    activeUsers: [],
   };
 
   load = (url: string) => {
@@ -199,7 +202,9 @@ class Player extends Component<IPlayerProps, AppState> {
       }
     });
 
-
+    this.socket.on("users_update", (data: { users: { username: string; id: string }[] }) => {
+      this.setState({ activeUsers: data.users });
+    });
 
     // Listening for 'seek' events from the socket
     this.socket.on("seek", (data) => {
@@ -236,6 +241,7 @@ class Player extends Component<IPlayerProps, AppState> {
       duration,
       playbackRate,
       pip,
+      activeUsers,
     } = this.state;
     const SEPARATOR = " ·";
 
@@ -247,6 +253,9 @@ class Player extends Component<IPlayerProps, AppState> {
           </div>
         )}
         <section className={`section`}>
+          <div className="absolute top-4 right-4 z-10">
+            <ActiveUsers users={activeUsers} />
+          </div>
           <div className="player-wrapper">
             <div className="player">
               <ReactPlayer
@@ -282,14 +291,6 @@ class Player extends Component<IPlayerProps, AppState> {
               />
             </div>
           </div>
-
-          {/* {this.state.init && ( */}
-            {/* <ChatPage
-              socket={this.socket}
-              roomId={`${this.props.roomId}`}
-              username={this.props.username}
-            /> */}
-          {/* )} */}
         </section>
       </div>
     );

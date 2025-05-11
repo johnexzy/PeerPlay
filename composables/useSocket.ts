@@ -1,10 +1,11 @@
 import { io } from "socket.io-client";
-export default function useSocket() {
-  // start the socket server
-
+export default function useSocket(username?: string) {
   try {
     const socket = io(
-      process.env.NEXT_PUBLIC_SOCKET || "http://localhost:4000"
+      process.env.NEXT_PUBLIC_SOCKET || "http://localhost:4000",
+      {
+        query: { username } // Add username to socket connection
+      }
     );
 
     socket.on("connect", () => {

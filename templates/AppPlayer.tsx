@@ -20,7 +20,7 @@ function AppPlayer({ url, roomId }: AppPlayerProps) {
   const [isRoomIdValid, setIsRoomIdValid] = useState(false);
   const [username, setUsername] = useState("");
   const [joining, setJoining] = useState(false);
-  const socket = Socket()!;
+  const socket = Socket(username)!;  // Pass username to Socket initialization
 
   const checkRoomId = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

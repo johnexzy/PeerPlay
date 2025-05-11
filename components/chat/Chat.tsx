@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import ActiveUsers from "./ActiveUsers";
 
 interface IMsgDataTypes {
   roomId: String | number;
@@ -11,6 +12,7 @@ interface IMsgDataTypes {
 const ChatPage = ({ socket, username, roomId }: any) => {
   const [currentMsg, setCurrentMsg] = useState("");
   const [chat, setChat] = useState<IMsgDataTypes[]>([]);
+  const [activeUsers, setActiveUsers] = useState<{ username: string; id: string }[]>([]);
 
   const sendData = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,10 +36,21 @@ const ChatPage = ({ socket, username, roomId }: any) => {
     socket.on("chat", (data: IMsgDataTypes) => {
       setChat((pre) => [...pre, data]);
     });
+
+    socket.on("users_update", (data: { users: { username: string; id: string }[] }) => {
+      setActiveUsers(data.users);
+    });
   }, [socket]);
 
   return (
     <div className="flex flex-col h-[600px] mx-auto max-w-md border rounded-lg shadow-lg overflow-hidden bg-gray-50">
+      <div className="p-3 border-b flex justify-between items-center bg-white sticky top-0 z-10">
+        <div className="flex items-center gap-2">
+          <h3 className="text-sm font-medium text-gray-700">Chat Room</h3>
+          <span className="text-xs text-gray-500">#{roomId}</span>
+        </div>
+        <ActiveUsers users={activeUsers} />
+      </div>
       <div className="flex-grow overflow-auto p-4 space-y-2">
         <ul className="space-y-2">
           {chat.map(({ user, msg, time }, index) => (
